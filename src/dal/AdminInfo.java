@@ -4,84 +4,47 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 import dol.Alumno;
 
-
-
 public class AdminInfo {
-	private AdminInfo AdminInfo;
-	private String filePath;
-	private String fileName;
-	
-	public AdminInfo() {
-		super();
-	}
+	public static void guardarListaDeAlumno(File file, List<Alumno> lista){
 
+	      try{
+	          FileOutputStream ficheroSalida= new FileOutputStream (file);
+	          ObjectOutputStream objetoSalida=new ObjectOutputStream (ficheroSalida);
+	          objetoSalida.writeObject (lista);
+	          objetoSalida.close ();
+	      }catch (FileNotFoundException e){
+	          System.out.println ("El fichero no existe");
+	      } catch(Exception e){
+	          System.out.println (e.getMessage ());
+	      }
 
+	    }
 
-	public AdminInfo getAdminInfo() {
-		return AdminInfo;
-	}
+	    public static List<Alumno>obtenerListaDeAlumno(File file){
 
-
-	public void setAdminInfo(Alumno alumno) {
-		this.AdminInfo = AdminInfo;
-	}
-
-
-	public String getFilePath() {
-		return filePath;
-	}
-
-
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
-	}
-
-
-	public String getFileName() {
-		return fileName;
-	}
-
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
-	
-
-	public void CargarInformation() {
-		
-		File archivo = new File ("./datos/info.txt");
-		ObjectOutputStream a;
-		try {
-			a = new ObjectOutputStream(new FileOutputStream(archivo));
-		    a.writeObject(getAdminInfo());
-		   a.flush();
-			FileWriter fw = new FileWriter(archivo, true);
-			fw.close();
-		} catch (IOException e) {
-			
-			e.printStackTrace();
-		}
-	}
-	
-	public Scanner Abrir() {
-		 try{
-	        	File archivo = new File(filePath);
-	            ObjectInputStream ois =  new ObjectInputStream(new FileInputStream(archivo));
-	            return (Scanner)ois.readObject();
+	        List<Alumno>lista= new ArrayList<> ();
+	        try{
+	            FileInputStream fis=new FileInputStream (file);
+	            ObjectInputStream ois=new ObjectInputStream (fis);
+	            lista=(List<Alumno>)ois.readObject ();
+	            ois.close ();
+	        }catch(FileNotFoundException e){
+	            System.out.println ("Fichero no existe");
+	        }catch (Exception e){
+	            System.out.println (e.getMessage ());
 	        }
-	        catch(FileNotFoundException e){
-	        	e.printStackTrace();
-	        } catch (IOException | ClassNotFoundException ex) {
-	        	ex.printStackTrace();
-	        }
-	        return null;
-		}
-	}
-
+	        return lista;
+	    }
+	    
+	    private static void salir() {
+	    	System.out.println("El programa ha finalizado");
+	    	System.exit(0);
+	    }
+}

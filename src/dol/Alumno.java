@@ -3,7 +3,7 @@ package dol;
 import java.util.Date;
 
 public class Alumno {
-	    private int NumCodigo;
+	    private String NumCodigo;
 	    private String Nombre;
 	    private String Apellido;
 	    private String Carrera; 
@@ -15,7 +15,7 @@ public class Alumno {
 		}
 
 
-		public Alumno(int numCodigo, String nombre, String apellido, String carrera, Date inscripdate) {
+		public Alumno(String numCodigo, String nombre, String apellido, String carrera, Date inscripdate) {
 			super();
 			NumCodigo = numCodigo;
 			Nombre = nombre;
@@ -25,12 +25,12 @@ public class Alumno {
 		}
 
 
-		public int getNumCodigo() {
+		public String getNumCodigo() {
 			return NumCodigo;
 		}
 
 
-		public void setNumCodigo(int numCodigo) {
+		public void setNumCodigo(String numCodigo) {
 			NumCodigo = numCodigo;
 		}
 
